@@ -77,8 +77,18 @@ class BST(object):
     # will return an integer representing the total number of levels in the
     # tree. If there is one value, the depth should be 1, if two values it
     # will be 2, \if three values it may be 2 or three, depending, etc.
+    # example taken from
+    # http://jelices.blogspot.com/2014/05/leetcode-python-maximum-depth-of-binary.html
     def depth(self):
-        pass
+        if self.root is None:
+            return 0
+
+        return max(self._depth(self.root.left_child),
+                   self._depth(self.root.right_child)) + 1
+
+    def _depth(self, node):
+        return max(self._depth(node.left_child),
+                   self._depth(node.right_child)) + 1
 
     # will return an integer, positive or negative that represents how well
     # balanced the tree is. Trees which are higher on the left than the right
