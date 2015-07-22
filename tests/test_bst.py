@@ -17,7 +17,7 @@ def create_bst():
     n6 = BSTNode(val=6)
 
     btree.root = n4
-    btree.size = 6
+    btree._size = 6
 
     n4.left_child = n2
     n4.right_child = n6
@@ -135,18 +135,20 @@ def test_depth(create_bst):
 def test_balance(create_bst):
     btree = create_bst
 
-    # The created tree has one fewer node on the right side.
+    # The created tree has the same number of tiers on each side.
     # A left-heavy tree should return positive; right-heavy, negative.
-    assert btree.balance > 0
+    assert btree.balance() == 0
 
-    # Add a node to the right side to make it balaced
+    # Add a node to the left side to skew it positively
+    btree.insert(0)
+    assert btree.balance() > 0
+
+    # Add a few nodes to the right side to skew it negatively
     btree.insert(7)
-    assert btree.balance == 0
-
-    # Add another node to the right side to skew it negatively
     btree.insert(8)
-    assert btree.balance < 0
+    btree.insert(9)
+    assert btree.balance() < 0
 
     # A new node should be balanced because it's empty
     newtree = BST()
-    assert newtree.balance == 0
+    assert newtree.balance() == 0

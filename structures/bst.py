@@ -66,6 +66,8 @@ class BST(object):
                         break
                     else:
                         node = node.right_child
+                else:
+                    break
 
     # will return True if val is in the BST, False if not.
     def contains(self, val):
