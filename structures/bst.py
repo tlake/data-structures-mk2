@@ -142,3 +142,29 @@ class BST(object):
                 "\n".join(self.root.get_dot())
             )
         ))
+
+
+if __name__ == '__main__':
+    # to make a graph, install graphviz and call
+    # dot -Tpng test.gv -o testGraph.png from shell
+    btree = BST()
+    for i in range(50):
+        btree.insert(random.randint(1, 100))
+    dot_graph = btree.get_dot()
+    with open('test.gv', 'w') as fh:
+        fh.write(dot_graph)
+
+    # running this file several times will give you a variety of graph orders
+    # you can make the graph png to compare time and graph order
+    from timeit import Timer
+    print ('Searching for a number in a randomly distributed graph, '
+        '1000 times.')
+    print Timer('btree.contains(50)',
+                'from __main__ import btree').timeit(1000)
+    badtree = BST()
+    for i in range(50):
+        badtree.insert(i)
+    print ('Searching for a number in a the worst possible case, '
+           '1000 times.')
+    print Timer('badtree.contains(50)',
+                'from __main__ import badtree').timeit(1000)
