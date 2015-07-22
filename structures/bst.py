@@ -19,7 +19,7 @@ class BSTNode(object):
 class BST(object):
     def __init__(self):
         self.root = None
-        self.size = 0
+        self._size = 0
 
     # will insert the value val into the BST.  If val is already
     # present, it will be ignored.
@@ -27,6 +27,7 @@ class BST(object):
 
         if self.root is None:
             self.root = BSTNode(val=val)
+            self._size = 1
 
         else:
             node = self.root
@@ -34,12 +35,14 @@ class BST(object):
                 if val < node.val:
                     if val.left_child is None:
                         val.left_child = BSTNode(val=val, parent=node)
+                        self._size += 1
                         break
                     else:
                         node = node.left_child
                 elif val > node.val:
                     if val.right_child is None:
                         val.right_child = BSTNode(val=val, parent=node)
+                        self._size += 1
                         break
                     else:
                         node = node.right_child
@@ -68,6 +71,7 @@ class BST(object):
     # will return the integer size of the BST (equal to the total number of
     # values stored in the tree), 0 if the tree is empty.
     def size(self):
+        return self._size
         pass
 
     # will return an integer representing the total number of levels in the
