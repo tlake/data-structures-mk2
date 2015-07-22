@@ -94,7 +94,6 @@ class BST(object):
     # values stored in the tree), 0 if the tree is empty.
     def size(self):
         return self._size
-        pass
 
     # will return an integer representing the total number of levels in the
     # tree. If there is one value, the depth should be 1, if two values it
