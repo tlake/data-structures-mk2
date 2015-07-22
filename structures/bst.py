@@ -158,7 +158,7 @@ if __name__ == '__main__':
     # you can make the graph png to compare time and graph order
     from timeit import Timer
     print ('Searching for a number in a randomly distributed graph, '
-        '1000 times.')
+           '1000 times.')
     print Timer('btree.contains(50)',
                 'from __main__ import btree').timeit(1000)
     badtree = BST()
