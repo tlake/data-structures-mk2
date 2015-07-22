@@ -17,7 +17,7 @@ class BSTNode(object):
         self.right_child = right_child
 
     def get_dot(self):
-        """recursively prepare a dot graph entry for this node."""
+        '''Recursively prepare a dot graph entry for this node.'''
         if self.left_child is not None:
             yield "\t%s -> %s;" % (self.val, self.left_child.val)
             for i in self.left_child.get_dot():
@@ -41,9 +41,9 @@ class BST(object):
         self.root = None
         self._size = 0
 
-    # will insert the value val into the BST.  If val is already
-    # present, it will be ignored.
     def insert(self, val):
+        ''' Inserts the value val into the BST.  If val is already
+        present, it will be ignored.'''
 
         if self.root is None:
             self.root = BSTNode(val=val)
@@ -69,8 +69,9 @@ class BST(object):
                 else:
                     break
 
-    # will return True if val is in the BST, False if not.
     def contains(self, val):
+        '''Returns True if val is in the BST, False if not.'''
+
         if self.root is None:
             return False
 
@@ -90,17 +91,20 @@ class BST(object):
                     else:
                         node = node.right_child
 
-    # will return the integer size of the BST (equal to the total number of
-    # values stored in the tree), 0 if the tree is empty.
     def size(self):
+        '''Returns the integer size of the BST (equal to the total number of
+        values stored in the tree), 0 if the tree is empty.'''
+
         return self._size
 
-    # will return an integer representing the total number of levels in the
-    # tree. If there is one value, the depth should be 1, if two values it
-    # will be 2, \if three values it may be 2 or three, depending, etc.
     # example taken from
     # http://jelices.blogspot.com/2014/05/leetcode-python-maximum-depth-of-binary.html
     def depth(self):
+        '''Returns an integer representing the total number of levels in the
+        tree. If there is one value, the depth should be 1, if two values it
+        should be 2, if three values it may be 2 or three, depending, etc.
+        '''
+
         if self.root is None:
             return 0
 
@@ -114,12 +118,13 @@ class BST(object):
         return max(self._depth(node.left_child),
                    self._depth(node.right_child)) + 1
 
-    # will return an integer, positive or negative that represents how well
-    # balanced the tree is. Trees which are higher on the left than the right
-    # should return a positive value, trees which are higher on the right than
-    # the left should return a negative value.  An ideallyl-balanced tree
-    # should return 0.
     def balance(self):
+        '''Returns an integer, positive or negative that represents how
+        well balanced the tree is. Trees which are higher on the left than the
+        right should return a positive value, trees which are higher on the
+        right than the left should return a negative value. An
+        ideally-balanced tree should return 0.'''
+
         if self.root is None:
             return 0
 
@@ -129,8 +134,9 @@ class BST(object):
         return (left - right)
 
     def get_dot(self):
-        """return the tree as a dot graph for visualization"""
-        return "digraph G{\n%s}" % ("" if self.root is None else (
+        '''Returns the tree as a dot graph for visualization'''
+
+        return "digraph G{\n%s" % ("" if self.root is None else (
             "\t%s;\n%s\n" % (
                 self.root.val,
                 "\n".join(self.root.get_dot())
