@@ -136,7 +136,7 @@ class BST(object):
     def get_dot(self):
         '''Returns the tree as a dot graph for visualization'''
 
-        return "digraph G{\n%s" % ("" if self.root is None else (
+        return "digraph G{\n%s}" % ("" if self.root is None else (
             "\t%s;\n%s\n" % (
                 self.root.val,
                 "\n".join(self.root.get_dot())
