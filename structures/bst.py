@@ -66,6 +66,8 @@ class BST(object):
                         break
                     else:
                         node = node.right_child
+                else:
+                    break
 
     # will return True if val is in the BST, False if not.
     def contains(self, val):
@@ -129,7 +131,7 @@ class BST(object):
 
     def get_dot(self):
         """return the tree as a dot graph for visualization"""
-        return "digraph G{\n%s" % ("" if self.root is None else (
+        return "digraph G{\n%s}" % ("" if self.root is None else (
             "\t%s;\n%s\n" % (
                 self.root.val,
                 "\n".join(self.root.get_dot())
