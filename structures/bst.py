@@ -33,15 +33,15 @@ class BST(object):
             node = self.root
             while True:
                 if val < node.val:
-                    if val.left_child is None:
-                        val.left_child = BSTNode(val=val, parent=node)
+                    if node.left_child is None:
+                        node.left_child = BSTNode(val=val, parent=node)
                         self._size += 1
                         break
                     else:
                         node = node.left_child
                 elif val > node.val:
-                    if val.right_child is None:
-                        val.right_child = BSTNode(val=val, parent=node)
+                    if node.right_child is None:
+                        node.right_child = BSTNode(val=val, parent=node)
                         self._size += 1
                         break
                     else:
@@ -87,6 +87,9 @@ class BST(object):
                    self._depth(self.root.right_child)) + 1
 
     def _depth(self, node):
+        if node is None:
+            return 0
+
         return max(self._depth(node.left_child),
                    self._depth(node.right_child)) + 1
 
@@ -96,4 +99,10 @@ class BST(object):
     # the left should return a negative value.  An ideallyl-balanced tree
     # should return 0.
     def balance(self):
-        pass
+        if self.root is None:
+            return 0
+
+        left = self._depth(self.root.left_child)
+        right = self._depth(self.root.right_child)
+
+        return (left - right)
