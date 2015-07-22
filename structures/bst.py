@@ -5,23 +5,40 @@ from __future__ import unicode_literals
 class BSTNode(object):
     def __init__(
         self,
-        payload,
+        val,
         parent=None,
         left_child=None,
         right_child=None
     ):
-        self.payload = payload
+        self.val = val
         self.parent = parent
         self.left_child = left_child
         self.right_child = right_child
 
 
 class BST(object):
+    def __init__(self):
+        self.root = None
+        self.size = 0
 
     # will insert the value val into the BST.  If val is already
     # present, it will be ignored.
     def insert(self, val):
-        pass
+
+        if self.root is None:
+            self.root = Node(val=val)
+
+        else:
+            node = self.root
+            while True:
+                if val < node.val:
+                    if val.left_child is None:
+                        val.left_child = Node(val=val, parent=node)
+                        break
+                    else:
+
+
+
 
     # will return True if val is in the BST, False if not.
     def contains(self, val):
