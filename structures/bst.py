@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import random
 
 
 class BSTNode(object):
@@ -14,6 +15,25 @@ class BSTNode(object):
         self.parent = parent
         self.left_child = left_child
         self.right_child = right_child
+
+    def get_dot(self):
+        """recursively prepare a dot graph entry for this node."""
+        if self.left_child is not None:
+            yield "\t%s -> %s;" % (self.val, self.left_child.val)
+            for i in self.left_child.get_dot():
+                yield i
+        elif self.right_child is not None:
+            r = random.randint(0, 1e9)
+            yield "\tnull%s [shape=point];" % r
+            yield "\t%s -> null%s;" % (self.val, r)
+        if self.right_child is not None:
+            yield "\t%s -> %s;" % (self.val, self.right_child.val)
+            for i in self.right_child.get_dot():
+                yield i
+        elif self.left_child is not None:
+            r = random.randint(0, 1e9)
+            yield "\tnull%s [shape=point];" % r
+            yield "\t%s -> null%s;" % (self.val, r)
 
 
 class BST(object):
@@ -106,3 +126,12 @@ class BST(object):
         right = self._depth(self.root.right_child)
 
         return (left - right)
+
+    def get_dot(self):
+        """return the tree as a dot graph for visualization"""
+        return "digraph G{\n%s" % ("" if self.root is None else (
+            "\t%s;\n%s\n" % (
+                self.root.val,
+                "\n".join(self.root.get_dot())
+            )
+        ))
