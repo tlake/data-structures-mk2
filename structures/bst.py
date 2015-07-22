@@ -26,23 +26,44 @@ class BST(object):
     def insert(self, val):
 
         if self.root is None:
-            self.root = Node(val=val)
+            self.root = BSTNode(val=val)
 
         else:
             node = self.root
             while True:
                 if val < node.val:
                     if val.left_child is None:
-                        val.left_child = Node(val=val, parent=node)
+                        val.left_child = BSTNode(val=val, parent=node)
                         break
                     else:
-
-
-
+                        node = node.left_child
+                elif val > node.val:
+                    if val.right_child is None:
+                        val.right_child = BSTNode(val=val, parent=node)
+                        break
+                    else:
+                        node = node.right_child
 
     # will return True if val is in the BST, False if not.
     def contains(self, val):
-        pass
+        if self.root is None:
+            return False
+
+        else:
+            node = self.root
+            while True:
+                if val == node.val:
+                    return True
+                elif val < node.val:
+                    if node.left_child is None:
+                        return False
+                    else:
+                        node = node.left_child
+                elif val > node.val:
+                    if node.right_child is None:
+                        return False
+                    else:
+                        node = node.right_child
 
     # will return the integer size of the BST (equal to the total number of
     # values stored in the tree), 0 if the tree is empty.
