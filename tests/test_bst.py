@@ -229,6 +229,65 @@ def test_balance_after_right_heavier(create_bst):
     assert btree.balance() == -2
 
 
+def test_breadth_first_traversal(create_bst):
+    btree = create_bst
+    t1_vals = [4]
+    t2_vals = [2, 6]
+    t3_vals = [1, 3, 5]
+
+    trav_gen = btree.breadth_first()
+
+    for x in range(btree.size()):
+        if x < 1:
+            assert trav_gen.next() in t1_vals
+        elif x < 3:
+            assert trav_gen.next() in t2_vals
+        else:
+            assert trav_gen.next() in t3_vals
+
+    with pytest.raises(StopIteration):
+        trav_gen.next()
+
+
+def test_pre_order_traversal(create_bst):
+    btree = create_bst
+    expected = [4, 2, 1, 3, 6, 5]
+
+    trav_gen = btree.pre_order()
+
+    for x in range(btree.size()):
+        assert trav_gen.next() == expected[x]
+
+    with pytest.raises(StopIteration):
+        trav_gen.next()
+
+
+def test_in_order_traversal(create_bst):
+    btree = create_bst
+    expected = [1, 2, 3, 4, 5, 6]
+
+    trav_gen = btree.in_order()
+
+    for x in range(btree.size()):
+        assert trav_gen.next() == expected[x]
+
+    with pytest.raises(StopIteration):
+        trav_gen.next()
+
+
+def test_post_order_traversal(create_bst):
+    btree = create_bst
+    expected = [1, 3, 2, 5, 6, 4]
+
+    trav_gen = btree.post_order()
+
+    for x in range(btree.size()):
+        assert trav_gen.next() == expected[x]
+
+    with pytest.raises(StopIteration):
+        trav_gen.next()
+
+
 @pytest.fixture
 def create_bst_2():
     btree = BST()
@@ -240,7 +299,7 @@ def create_bst_2():
     return btree
 
 
-def test_breadth_first_traversal(create_bst_2):
+def test_breadth_first_traversal_2(create_bst_2):
     btree = create_bst_2
     t1_vals = [10]
     t2_vals = [5, 15]
@@ -259,8 +318,11 @@ def test_breadth_first_traversal(create_bst_2):
         else:
             assert trav_gen.next() in t4_vals
 
+    with pytest.raises(StopIteration):
+        trav_gen.next()
 
-def test_pre_order_traversal(create_bst_2):
+
+def test_pre_order_traversal_2(create_bst_2):
     btree = create_bst_2
     expected = [10, 5, 2, 7, 6, 8, 15, 20, 17]
 
@@ -269,8 +331,11 @@ def test_pre_order_traversal(create_bst_2):
     for x in range(btree.size()):
         assert trav_gen.next() == expected[x]
 
+    with pytest.raises(StopIteration):
+        trav_gen.next()
 
-def test_in_order_traversal(create_bst_2):
+
+def test_in_order_traversal_2(create_bst_2):
     btree = create_bst_2
     expected = [2, 5, 6, 7, 8, 10, 15, 17, 20]
 
@@ -279,8 +344,11 @@ def test_in_order_traversal(create_bst_2):
     for x in range(btree.size()):
         assert trav_gen.next() == expected[x]
 
+    with pytest.raises(StopIteration):
+        trav_gen.next()
 
-def test_post_order_traversal(create_bst_2):
+
+def test_post_order_traversal_2(create_bst_2):
     btree = create_bst_2
     expected = [2, 6, 8, 7, 5, 17, 20, 15, 10]
 
@@ -288,3 +356,6 @@ def test_post_order_traversal(create_bst_2):
 
     for x in range(btree.size()):
         assert trav_gen.next() == expected[x]
+
+    with pytest.raises(StopIteration):
+        trav_gen.next()
