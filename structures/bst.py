@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import random
+from collections import deque
 
 
 class BSTNode(object):
@@ -142,6 +143,55 @@ class BST(object):
                 "\n".join(self.root.get_dot())
             )
         ))
+
+    def in_order(self):
+        visited = []
+        self._in_order(self.root, visited)
+        return visited
+
+    def _in_order(self, node, visited):
+        if node is None:
+            return None
+        self._in_order(node.left_child, visited)
+        visited.append(node.val)
+        self._in_order(node.right_child, visited)
+
+    def pre_order(self):
+        visited = []
+        self._pre_order(self.root, visited)
+        return visited
+
+    def _pre_order(self, node, visited):
+        if node is None:
+            return None
+        visited.append(node.val)
+        self._pre_order(node.left_child, visited)
+        self._pre_order(node.right_child, visited)
+
+    def post_order(self):
+        visited = []
+        self._post_order(self.root, visited)
+        return visited
+
+    def _post_order(self, node, visited):
+        if node is None:
+            return None
+        self._post_order(node.left_child, visited)
+        self._post_order(node.right_child, visited)
+        visited.append(node.val)
+
+    def breadth_first(self):
+        visited = []
+        q = deque()
+        q.appendleft(self.root)
+        while q:
+            node = q.pop()
+            visited.append(node.val)
+        if node.left_child is not None:
+            q.appendleft(node.left_child)
+        if node.right_child is not None:
+            q.appendleft(node.right_child)
+        return visited
 
 
 if __name__ == '__main__':
