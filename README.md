@@ -36,6 +36,18 @@ A (second) repository to hold sample code for a number of classic data structure
     are higher on the right than the left should return a negative value.  An ideally-balanced tree
     should return 0.
 
+- in_order(self):
+    * Will return a generator that performs an in-order traversal of the tree and yields each node's value.
+
+- pre_order(self):
+    * Will return a generator that performs a pre-order traversal of the tree and yields each node's value.
+
+- post_order(self):
+    * Will return a generator that performs a post-order traversal of the tree and yields each node's value.
+
+- breadth_first(self):
+    * Will return a generator that performs a breadth-first traversal of the tree and yields each node's value.
+
 #### Resources:
 
 For implementing `depth()`, we found the following:

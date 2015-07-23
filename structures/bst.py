@@ -145,6 +145,10 @@ class BST(object):
         ))
 
     def in_order(self):
+        """Return a generator of the tree in-order.
+
+        Performs an in-order traversal of the tree, yielding each
+        node's value."""
         for x in self._in_order(self.root):
             yield x
 
@@ -157,6 +161,10 @@ class BST(object):
                 yield y
 
     def pre_order(self):
+        """Return a generator of the tree pre-order.
+
+        Performs a pre-order traversal of the tree, yielding each
+        node's value."""
         for x in self._pre_order(self.root):
             yield x
 
@@ -169,6 +177,10 @@ class BST(object):
                 yield y
 
     def post_order(self):
+        """Return a generator of the tree post-order.
+
+        Performs a pre-order traversal of the tree, yielding each
+        node's value."""
         for x in self._post_order(self.root):
             yield x
 
@@ -181,6 +193,10 @@ class BST(object):
             yield node.val
 
     def breadth_first(self):
+        """Return a generator of the tree, breadth-first.
+
+        Performs a breadth-first traversal of the tree, yielding each
+        node's value."""
         q = deque()
         q.appendleft(self.root)
         while q:
