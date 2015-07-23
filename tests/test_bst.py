@@ -227,3 +227,62 @@ def test_balance_after_right_heavier(create_bst):
     btree.insert(9)
 
     assert btree.balance() == -2
+
+
+@pytest.fixture
+def create_bst_2():
+    btree = BST()
+    vals = [10, 5, 15, 2, 7, 20, 6, 8, 17]
+
+    for val in vals:
+        btree.insert(val=val)
+
+    return btree
+
+
+def test_breadth_first_traversal(create_bst_2):
+    btree = create_bst_2
+    t1_vals = [10]
+    t2_vals = [5, 15]
+    t3_vals = [2, 7, 20]
+    t4_vals = [6, 8, 17]
+
+    trav = btree.breadth_first()
+
+    assert trav[0] in t1_vals
+
+    for ndx in [1, 2]:
+        assert trav[ndx] in t2_vals
+
+    for ndx in [3, 4, 5]:
+        assert trav[ndx] in t3_vals
+
+    for ndx in [6, 7, 8]:
+        assert trav[ndx] in t4_vals
+
+
+def test_pre_order_traversal(create_bst_2):
+    btree = create_bst_2
+    expected = [10, 5, 2, 7, 6, 8, 15, 20, 17]
+
+    trav = btree.pre_order()
+
+    assert expected == trav
+
+
+def test_in_order_traversal(create_bst_2):
+    btree = create_bst_2
+    expected = [2, 5, 6, 7, 8, 10, 15, 17, 20]
+
+    trav = btree.in_order()
+
+    assert expected == trav
+
+
+def test_post_order_traversal(create_bst_2):
+    btree = create_bst_2
+    expected = [2, 6, 8, 7, 5, 17, 20, 15, 10]
+
+    trav = btree.post_order()
+
+    assert expected == trav
