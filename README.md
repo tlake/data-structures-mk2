@@ -63,8 +63,8 @@ A (second) repository to hold sample code for a number of classic data structure
 
 http://jelices.blogspot.com/2014/05/leetcode-python-maximum-depth-of-binary.html
 
-- Information on implementing the four traversals (in_order, pre_order, post_order, and depth-first)
-was acquired from Wikipedia:
+- Information on implementing the four traversals (in_order, pre_order,
+post_order, and breadth-first) was acquired from Wikipedia:
 
 https://en.wikipedia.org/wiki/Tree_traversal
 
