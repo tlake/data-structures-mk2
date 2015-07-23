@@ -59,7 +59,7 @@ A (second) repository to hold sample code for a number of classic data structure
 
 #### Resources:
 
-For implementing `depth()`, we found the following:
+- For implementing `depth()`, we found the following:
 
 http://jelices.blogspot.com/2014/05/leetcode-python-maximum-depth-of-binary.html
 
