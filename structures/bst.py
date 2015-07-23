@@ -187,10 +187,10 @@ class BST(object):
         while q:
             node = q.pop()
             visited.append(node.val)
-        if node.left_child is not None:
-            q.appendleft(node.left_child)
-        if node.right_child is not None:
-            q.appendleft(node.right_child)
+            if node.left_child is not None:
+                q.appendleft(node.left_child)
+            if node.right_child is not None:
+                q.appendleft(node.right_child)
         return visited
 
 
