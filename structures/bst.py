@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import random
+from collections import deque
 
 
 class BSTNode(object):
@@ -142,6 +143,69 @@ class BST(object):
                 "\n".join(self.root.get_dot())
             )
         ))
+
+    def in_order(self):
+        """Return a generator of the tree in-order.
+
+        Performs an in-order traversal of the tree, yielding each
+        node's value."""
+        for x in self._in_order(self.root):
+            yield x
+
+    def _in_order(self, node):
+        if node is not None:
+            for x in self._in_order(node.left_child):
+                yield x
+            yield node.val
+            for y in self._in_order(node.right_child):
+                yield y
+
+    def pre_order(self):
+        """Return a generator of the tree pre-order.
+
+        Performs a pre-order traversal of the tree, yielding each
+        node's value."""
+        for x in self._pre_order(self.root):
+            yield x
+
+    def _pre_order(self, node):
+        if node is not None:
+            yield node.val
+            for x in self._pre_order(node.left_child):
+                yield x
+            for y in self._pre_order(node.right_child):
+                yield y
+
+    def post_order(self):
+        """Return a generator of the tree post-order.
+
+        Performs a pre-order traversal of the tree, yielding each
+        node's value."""
+        for x in self._post_order(self.root):
+            yield x
+
+    def _post_order(self, node):
+        if node is not None:
+            for x in self._post_order(node.left_child):
+                yield x
+            for y in self._post_order(node.right_child):
+                yield y
+            yield node.val
+
+    def breadth_first(self):
+        """Return a generator of the tree, breadth-first.
+
+        Performs a breadth-first traversal of the tree, yielding each
+        node's value."""
+        q = deque()
+        q.appendleft(self.root)
+        while q:
+            node = q.pop()
+            yield node.val
+            if node.left_child is not None:
+                q.appendleft(node.left_child)
+            if node.right_child is not None:
+                q.appendleft(node.right_child)
 
 
 if __name__ == '__main__':
