@@ -218,12 +218,6 @@ def test_balance_after_right_heavy(create_bst):
 
     assert btree.balance() == -1
 
-
-def test_balance_after_right_heavier(create_bst):
-    btree = create_bst
-
-    btree.insert(7)
-    btree.insert(8)
     btree.insert(9)
 
     assert btree.balance() == -2
