@@ -5,6 +5,14 @@ from collections import deque
 
 
 class BSTNode(object):
+    """A node suitable for insertion into a binary tree.
+
+        Values:
+                val: the data stored in the node
+                parent: the parent node
+                left_child: the left child of the node
+                right_child: the right child of the node
+    """
     def __init__(
         self,
         val,
@@ -38,6 +46,13 @@ class BSTNode(object):
 
 
 class BST(object):
+    """ A binary search tree that holds BSTNodes.
+
+        Values:
+                root: the root node of the tree.
+
+    """
+
     def __init__(self):
         self.root = None
         self._size = 0
@@ -99,19 +114,24 @@ class BST(object):
             return None
 
         self._del_rec(self.root, val)
+        self._size -= 1
 
     def _del_rec(self, node, val):
         if val < node.val:
-            self._del_rec(node.left_child)
+            self._del_rec(node.left_child, val)
 
         elif val > node.val:
-            self._del_rec(node.right_child)
+            self._del_rec(node.right_child, val)
 
         else:
             if node.left_child and node.right_child:
-                successor = self._find_max(self.left_child)
+                if self._depth(node.left_child) >= self._depth(
+                        node.right_child):
+                    successor = self._find_max(node.left_child)
+                else:
+                    successor = self._find_min(node.right_child)
                 node.val = successor.val
-                self._del_rec(successor)
+                self._del_rec(successor, successor.val)
 
             elif node.left_child:
                 self._delete(node, node.left_child)
