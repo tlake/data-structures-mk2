@@ -92,6 +92,66 @@ class BST(object):
                     else:
                         node = node.right_child
 
+    def delete(self, val):
+        '''Removes val from the tree if present; if not present, this method is
+        a no-op. Returns None in all cases.'''
+        if not self.contains(val):
+            return None
+
+        self._del_rec(self.root, val)
+
+    def _del_rec(self, node, val):
+        if val < node.val:
+            self._del_rec(node.left_child)
+
+        elif val > node.val:
+            self._del_rec(node.right_child)
+
+        else:
+            if node.left_child and node.right_child:
+                successor = self._find_max(self.left_child)
+                node.val = successor.val
+                self._del_rec(successor)
+
+            elif node.left_child:
+                self._delete(node, node.left_child)
+
+            elif node.right_child:
+                self._delete(node, node.right_child)
+
+            else:
+                self._delete(node)
+
+    def _delete(self, node, child=None):
+        try:
+            if node == node.parent.left_child:
+                node.parent.left_child = child
+
+            else:
+                node.parent.right_child = child
+
+            if child:
+                child.parent = node.parent
+
+        except AttributeError:
+            node = None
+
+    def _find_min(self, node):
+        current_node = node
+
+        while current_node.left_child:
+            current_node = current_node.left_child
+
+        return current_node
+
+    def _find_max(self, node):
+        current_node = node
+
+        while current_node.right_child:
+            current_node = current_node.right_child
+
+        return current_node
+
     def size(self):
         '''Returns the integer size of the BST (equal to the total number of
         values stored in the tree), 0 if the tree is empty.'''
