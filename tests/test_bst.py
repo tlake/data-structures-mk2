@@ -389,3 +389,75 @@ def test_delete_nonexistent_value(create_bst_2):
     create_bst_2.delete(25)
     assert not create_bst_2.contains(25)
     assert create_bst_2.size() == 9
+
+
+@pytest.fixture
+def create_l_l_tree():
+    n1 = BSTNode(val=1)
+    n2 = BSTNode(val=2)
+    n3 = BSTNode(val=3)
+    n4 = BSTNode(val=4)
+    n5 = BSTNode(val=5)
+    n6 = BSTNode(val=6)
+    n7 = BSTNode(val=7)
+
+    n6.right_child = n7
+    n6.left_child = n4
+    n4.right_child = n5
+    n4.left_child = n2
+    n2.right_child = n3
+    n2.left_child = n1
+
+    n1.parent = n2
+    n3.parent = n2
+    n2.parent = n4
+    n5.parent = n4
+    n4.parent = n6
+    n7.parent = n6
+
+    btree = BST()
+    btree.root = n6
+
+    return btree
+
+
+def test_rotate_right_on_l_l_tree(create_l_l_tree):
+    btree = create_l_l_tree
+
+    pivot = btree.root.left_child
+    newroot = btree.root.left_child.left_child
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='right'
+    )
+
+    assert btree.root.val == 6
+    assert btree.root.left_child.val is newroot.val
+    assert newroot.parent is btree.root
+    assert pivot.parent is newroot
+    assert newroot.right_child is pivot
+    assert pivot.left_child.val == 3
+    assert pivot.left_child.parent is pivot
+
+
+def test_rotate_right_on_l_l_tree_parentless_pivot(create_l_l_tree):
+    btree = create_l_l_tree
+
+    pivot = btree.root
+    newroot = btree.root.left_child
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='right'
+    )
+
+    assert btree.root is newroot
+    assert newroot.parent is None
+    assert newroot.left_child.val == 2
+    assert newroot.right_child is pivot
+    assert pivot.parent is newroot
+    assert pivot.left_child.val == 5
+    assert pivot.left_child.parent is pivot
