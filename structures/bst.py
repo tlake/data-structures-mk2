@@ -324,6 +324,7 @@ class BST(object):
             else:
                 pivot.parent = newroot
                 newroot.parent = None
+                self.root = newroot
 
         elif direction == 'right':
             if newroot.right_child is not None:
