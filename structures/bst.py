@@ -154,6 +154,7 @@ class BST(object):
 
             if child:
                 child.parent = node.parent
+            self.make_balanced(node.parent)
 
         except AttributeError:
             node = None
@@ -319,8 +320,12 @@ class BST(object):
                 pivot.right_child = None
 
             if pivot.parent is not None:
-                pivot.parent.left_child = newroot
+                if pivot.val < pivot.parent.val:
+                    pivot.parent.left_child = newroot
+                else:
+                    pivot.parent.right_child = newroot
                 newroot.parent = pivot.parent
+                pivot.parent = newroot
             else:
                 pivot.parent = newroot
                 newroot.parent = None
@@ -336,8 +341,12 @@ class BST(object):
                 pivot.left_child = None
 
             if pivot.parent is not None:
-                pivot.parent.right_child = newroot
+                if pivot.val > pivot.parent.val:
+                    pivot.parent.right_child = newroot
+                else:
+                    pivot.parent.left_chilld = newroot
                 newroot.parent = pivot.parent
+                pivot.parent = newroot
             else:
                 pivot.parent = newroot
                 newroot.parent = None
@@ -345,6 +354,11 @@ class BST(object):
 
         else:
             raise ValueError("direction must be 'left' or 'right'")
+
+    def make_graph(self):
+        dot_graph = self.get_dot()
+        with open('test.gv', 'w') as fh:
+            fh.write(dot_graph)
 
 
 if __name__ == '__main__':

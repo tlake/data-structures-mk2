@@ -210,6 +210,7 @@ def test_balance_after_left_heavy(create_bst):
     assert btree.balance() == 1
 
 
+# changed on tree balancing feature add
 def test_balance_after_right_heavy(create_bst):
     btree = create_bst
 
@@ -219,8 +220,8 @@ def test_balance_after_right_heavy(create_bst):
     assert btree.balance() == -1
 
     btree.insert(9)
-
-    assert btree.balance() == -2
+    # tree rebalances here
+    assert btree.balance() == -1
 
 
 def test_breadth_first_traversal(create_bst):
@@ -296,9 +297,9 @@ def create_bst_2():
 def test_breadth_first_traversal_2(create_bst_2):
     btree = create_bst_2
     t1_vals = [10]
-    t2_vals = [5, 15]
-    t3_vals = [2, 7, 20]
-    t4_vals = [6, 8, 17]
+    t2_vals = [5, 17]
+    t3_vals = [2, 7, 15, 20]
+    t4_vals = [6, 8]
 
     trav_gen = btree.breadth_first()
 
