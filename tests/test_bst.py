@@ -218,12 +218,6 @@ def test_balance_after_right_heavy(create_bst):
 
     assert btree.balance() == -1
 
-
-def test_balance_after_right_heavier(create_bst):
-    btree = create_bst
-
-    btree.insert(7)
-    btree.insert(8)
     btree.insert(9)
 
     assert btree.balance() == -2
@@ -359,3 +353,37 @@ def test_post_order_traversal_2(create_bst_2):
 
     with pytest.raises(StopIteration):
         trav_gen.next()
+
+
+def test_delete_root(create_bst_2):
+    create_bst_2.delete(10)
+    assert create_bst_2.root.val == 8
+    assert create_bst_2.size() == 8
+    assert create_bst_2.root.parent is None
+
+
+def test_delete_leaf(create_bst_2):
+    create_bst_2.delete(17)
+    assert not create_bst_2.contains(17)
+
+
+def test_delete_one_child(create_bst_2):
+    create_bst_2.delete(20)
+    assert create_bst_2.root.right_child.right_child.val == 17
+    assert create_bst_2.root.right_child.right_child.parent.val == 15
+
+
+def test_delete_go_right(create_bst_2):
+    create_bst_2.delete(5)
+    assert create_bst_2.root.left_child.val == 6
+
+
+def test_delete_empty_tree():
+    btree = BST()
+    assert btree.delete(5) is None
+
+
+def test_delete_nonexistent_value(create_bst_2):
+    create_bst_2.delete(25)
+    assert not create_bst_2.contains(25)
+    assert create_bst_2.size() == 9

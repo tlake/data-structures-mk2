@@ -56,6 +56,15 @@ A (second) repository to hold sample code for a number of classic data structure
     * Will return a generator that performs a breadth-first traversal of the
     tree and yields each node's value.
 
+- delete(self, val):
+    * Will remove val from the tree if present; if val is not present, this
+    method is a no-op. Returns None in all cases.
+
+    * There are three cases to be considered when deleting a node:
+        - The node is a leaf (has no descendants)
+        - The node has one descendant (either left or right)
+        - The node has two descendants (both left and right)
+
 
 #### Resources:
 
@@ -71,3 +80,7 @@ https://en.wikipedia.org/wiki/Tree_traversal
 - Information on implementing recursive generators found at:
 
 http://www.java2s.com/Tutorial/Python/0060__Statement/ARecursiveGenerator.htm
+
+- Information on deleting from a BST:
+
+https://en.wikipedia.org/wiki/Binary_search_tree#Deletion
