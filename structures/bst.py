@@ -344,7 +344,7 @@ class BST(object):
                 if pivot.val > pivot.parent.val:
                     pivot.parent.right_child = newroot
                 else:
-                    pivot.parent.left_chilld = newroot
+                    pivot.parent.left_child = newroot
                 newroot.parent = pivot.parent
                 pivot.parent = newroot
             else:
