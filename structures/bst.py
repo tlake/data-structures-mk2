@@ -72,6 +72,7 @@ class BST(object):
                     if node.left_child is None:
                         node.left_child = BSTNode(val=val, parent=node)
                         self._size += 1
+                        self.make_balanced(node)
                         break
                     else:
                         node = node.left_child
@@ -79,6 +80,7 @@ class BST(object):
                     if node.right_child is None:
                         node.right_child = BSTNode(val=val, parent=node)
                         self._size += 1
+                        self.make_balanced(node)
                         break
                     else:
                         node = node.right_child
@@ -209,9 +211,11 @@ class BST(object):
         if self.root is None:
             return 0
 
-        left = self._depth(self.root.left_child)
-        right = self._depth(self.root.right_child)
+        return self._balance(self.root)
 
+    def _balance(self, node):
+        left = self._depth(node.left_child)
+        right = self._depth(node.right_child)
         return (left - right)
 
     def get_dot(self):
@@ -287,8 +291,22 @@ class BST(object):
             if node.right_child is not None:
                 q.appendleft(node.right_child)
 
-    def make_balanced(self):
-        pass
+    def make_balanced(self, node):
+        balance = self._balance(node)
+        if balance == 0:
+            return
+        elif balance > 1:
+            if self._balance(node.left_child) == -1:
+                self._rotate(node.left_child,
+                             node.left_child.right_child, 'left')
+            self._rotate(node, node.left_child, 'right')
+        elif balance < -1:
+            if self._balance(node.right_child) == 1:
+                self._rotate(node.right_child,
+                             node.right_child.left_child, 'right')
+            self._rotate(node, node.right_child, 'left')
+        if node.parent:
+            self.make_balanced(node.parent)
 
     def _rotate(self, pivot, newroot, direction):
         if direction == 'left':
