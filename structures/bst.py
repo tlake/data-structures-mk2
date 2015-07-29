@@ -340,6 +340,7 @@ class BST(object):
             else:
                 pivot.parent = newroot
                 newroot.parent = None
+                self.root = newroot
 
         else:
             raise ValueError("direction must be 'left' or 'right'")
