@@ -287,6 +287,28 @@ class BST(object):
             if node.right_child is not None:
                 q.appendleft(node.right_child)
 
+    def make_balanced(self):
+        pass
+
+    def _rotate(self, pivot, newroot, direction):
+        if direction == 'left':
+            pivot.parent.left_child = newroot
+            newroot.left_child.parent = pivot
+            pivot.right_child = newroot.left_child
+            newroot.left_child = pivot
+
+        elif direction == 'right':
+            pivot.parent.right_child = newroot
+            newroot.right_child.parent = pivot
+            pivot.left_child = newroot.right_child
+            newroot.right_child = pivot
+
+        else:
+            raise ValueError("direction must be 'left' or 'right'")
+
+        newroot.parent = pivot.parent
+        pivot.parent = newroot
+
 
 if __name__ == '__main__':
     # to make a graph, install graphviz and call
