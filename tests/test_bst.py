@@ -308,7 +308,7 @@ def test_breadth_first_traversal_2(create_bst_2):
             assert trav_gen.next() in t1_vals
         elif x < 3:
             assert trav_gen.next() in t2_vals
-        elif x < 6:
+        elif x < 7:
             assert trav_gen.next() in t3_vals
         else:
             assert trav_gen.next() in t4_vals
@@ -319,7 +319,7 @@ def test_breadth_first_traversal_2(create_bst_2):
 
 def test_pre_order_traversal_2(create_bst_2):
     btree = create_bst_2
-    expected = [10, 5, 2, 7, 6, 8, 15, 20, 17]
+    expected = [10, 5, 2, 7, 6, 8, 17, 15, 20]
 
     trav_gen = btree.pre_order()
 
@@ -345,7 +345,7 @@ def test_in_order_traversal_2(create_bst_2):
 
 def test_post_order_traversal_2(create_bst_2):
     btree = create_bst_2
-    expected = [2, 6, 8, 7, 5, 17, 20, 15, 10]
+    expected = [2, 6, 8, 7, 5, 15, 20, 17, 10]
 
     trav_gen = btree.post_order()
 
@@ -369,9 +369,10 @@ def test_delete_leaf(create_bst_2):
 
 
 def test_delete_one_child(create_bst_2):
-    create_bst_2.delete(20)
-    assert create_bst_2.root.right_child.right_child.val == 17
-    assert create_bst_2.root.right_child.right_child.parent.val == 15
+    create_bst_2.insert(1)
+    create_bst_2.delete(2)
+    assert create_bst_2.root.left_child.left_child.val == 1
+    assert create_bst_2.root.left_child.left_child.parent.val == 5
 
 
 def test_delete_go_right(create_bst_2):
