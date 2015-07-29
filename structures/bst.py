@@ -310,22 +310,39 @@ class BST(object):
 
     def _rotate(self, pivot, newroot, direction):
         if direction == 'left':
-            pivot.parent.left_child = newroot
-            newroot.left_child.parent = pivot
-            pivot.right_child = newroot.left_child
-            newroot.left_child = pivot
+            if newroot.left_child is not None:
+                pivot.right_child = newroot.left_child
+                newroot.left_child.parent = pivot
+                newroot.left_child = pivot
+            else:
+                newroot.left_child = pivot
+                pivot.right_child = None
+
+            if pivot.parent is not None:
+                pivot.parent.left_child = newroot
+                newroot.parent = pivot.parent
+            else:
+                pivot.parent = newroot
+                newroot.parent = None
 
         elif direction == 'right':
-            pivot.parent.right_child = newroot
-            newroot.right_child.parent = pivot
-            pivot.left_child = newroot.right_child
-            newroot.right_child = pivot
+            if newroot.right_child is not None:
+                pivot.left_child = newroot.right_child
+                newroot.right_child.parent = pivot
+                newroot.right_child = pivot
+            else:
+                newroot.right_child = pivot
+                pivot.left_child = None
+
+            if pivot.parent is not None:
+                pivot.parent.right_child = newroot
+                newroot.parent = pivot.parent
+            else:
+                pivot.parent = newroot
+                newroot.parent = None
 
         else:
             raise ValueError("direction must be 'left' or 'right'")
-
-        newroot.parent = pivot.parent
-        pivot.parent = newroot
 
 
 if __name__ == '__main__':
