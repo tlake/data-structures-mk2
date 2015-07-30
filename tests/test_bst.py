@@ -461,3 +461,11 @@ def test_rotate_right_on_l_l_tree_parentless_pivot(create_l_l_tree):
     assert pivot.parent is newroot
     assert pivot.left_child.val == 5
     assert pivot.left_child.parent is pivot
+
+
+def test_make_balanced(create_l_l_tree):
+    create_l_l_tree.make_balanced(create_l_l_tree.root)
+    assert create_l_l_tree.root.val == 4
+    assert create_l_l_tree.root.left_child.val == 2
+    assert create_l_l_tree.root.right_child.val == 6
+    assert create_l_l_tree.root.right_child.parent.val == 4
