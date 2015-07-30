@@ -72,6 +72,7 @@ class BST(object):
                     if node.left_child is None:
                         node.left_child = BSTNode(val=val, parent=node)
                         self._size += 1
+                        self.make_balanced(node)
                         break
                     else:
                         node = node.left_child
@@ -79,6 +80,7 @@ class BST(object):
                     if node.right_child is None:
                         node.right_child = BSTNode(val=val, parent=node)
                         self._size += 1
+                        self.make_balanced(node)
                         break
                     else:
                         node = node.right_child
@@ -152,6 +154,7 @@ class BST(object):
 
             if child:
                 child.parent = node.parent
+            self.make_balanced(node.parent)
 
         except AttributeError:
             node = None
@@ -209,9 +212,11 @@ class BST(object):
         if self.root is None:
             return 0
 
-        left = self._depth(self.root.left_child)
-        right = self._depth(self.root.right_child)
+        return self._balance(self.root)
 
+    def _balance(self, node):
+        left = self._depth(node.left_child)
+        right = self._depth(node.right_child)
         return (left - right)
 
     def get_dot(self):
@@ -286,6 +291,74 @@ class BST(object):
                 q.appendleft(node.left_child)
             if node.right_child is not None:
                 q.appendleft(node.right_child)
+
+    def make_balanced(self, node):
+        balance = self._balance(node)
+        if balance == 0:
+            return
+        elif balance > 1:
+            if self._balance(node.left_child) == -1:
+                self._rotate(node.left_child,
+                             node.left_child.right_child, 'left')
+            self._rotate(node, node.left_child, 'right')
+        elif balance < -1:
+            if self._balance(node.right_child) == 1:
+                self._rotate(node.right_child,
+                             node.right_child.left_child, 'right')
+            self._rotate(node, node.right_child, 'left')
+        if node.parent:
+            self.make_balanced(node.parent)
+
+    def _rotate(self, pivot, newroot, direction):
+        if direction == 'left':
+            if newroot.left_child is not None:
+                pivot.right_child = newroot.left_child
+                newroot.left_child.parent = pivot
+                newroot.left_child = pivot
+            else:
+                newroot.left_child = pivot
+                pivot.right_child = None
+
+            if pivot.parent is not None:
+                if pivot.val < pivot.parent.val:
+                    pivot.parent.left_child = newroot
+                else:
+                    pivot.parent.right_child = newroot
+                newroot.parent = pivot.parent
+                pivot.parent = newroot
+            else:
+                pivot.parent = newroot
+                newroot.parent = None
+                self.root = newroot
+
+        elif direction == 'right':
+            if newroot.right_child is not None:
+                pivot.left_child = newroot.right_child
+                newroot.right_child.parent = pivot
+                newroot.right_child = pivot
+            else:
+                newroot.right_child = pivot
+                pivot.left_child = None
+
+            if pivot.parent is not None:
+                if pivot.val > pivot.parent.val:
+                    pivot.parent.right_child = newroot
+                else:
+                    pivot.parent.left_child = newroot
+                newroot.parent = pivot.parent
+                pivot.parent = newroot
+            else:
+                pivot.parent = newroot
+                newroot.parent = None
+                self.root = newroot
+
+        else:
+            raise ValueError("direction must be 'left' or 'right'")
+
+    def make_graph(self):
+        dot_graph = self.get_dot()
+        with open('test.gv', 'w') as fh:
+            fh.write(dot_graph)
 
 
 if __name__ == '__main__':
