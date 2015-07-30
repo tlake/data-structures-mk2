@@ -434,7 +434,7 @@ def test_rotate_right_on_l_l_tree(create_l_l_tree):
     )
 
     assert btree.root.val == 6
-    assert btree.root.left_child.val is newroot.val
+    assert btree.root.left_child is newroot
     assert newroot.parent is btree.root
     assert pivot.parent is newroot
     assert newroot.right_child is pivot
@@ -469,3 +469,177 @@ def test_make_balanced(create_l_l_tree):
     assert create_l_l_tree.root.left_child.val == 2
     assert create_l_l_tree.root.right_child.val == 6
     assert create_l_l_tree.root.right_child.parent.val == 4
+
+
+def test_rotate_right_on_l_l_tree_childless_newroot(create_l_l_tree):
+    btree = create_l_l_tree
+
+    pivot = btree.root.left_child.left_child
+    newroot = btree.root.left_child.left_child.left_child
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='right'
+    )
+
+    assert btree.root.left_child.left_child is newroot
+    assert newroot.parent.val == 4
+    assert newroot.parent.left_child is newroot
+    assert newroot.right_child is pivot
+    assert pivot.parent is newroot
+    assert newroot.left_child is None
+    assert pivot.left_child is None
+    assert pivot.right_child.val == 3
+    assert pivot.right_child.parent is pivot
+
+
+def test_rotate_right_on_l_l_tree_parentless_and_childless():
+    pivot = BSTNode(val=2)
+    newroot = BSTNode(val=1)
+    n3 = BSTNode(val=3)
+
+    pivot.right_child = n3
+    pivot.left_child = newroot
+    newroot.parent = pivot
+    n3.parent = pivot
+
+    btree = BST()
+    btree.root = pivot
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='right'
+    )
+
+    assert btree.root is newroot
+    assert newroot.parent is None
+    assert newroot.left_child is None
+    assert newroot.right_child is pivot
+    assert pivot.parent is newroot
+    assert pivot.right_child is n3
+    assert n3.parent is pivot
+
+
+@pytest.fixture
+def create_r_r_tree():
+    n1 = BSTNode(val=1)
+    n2 = BSTNode(val=2)
+    n3 = BSTNode(val=3)
+    n4 = BSTNode(val=4)
+    n5 = BSTNode(val=5)
+    n6 = BSTNode(val=6)
+    n7 = BSTNode(val=7)
+
+    n2.left_child = n1
+    n2.right_child = n4
+    n4.left_child = n3
+    n4.right_child = n6
+    n6.left_child = n5
+    n6.right_child = n7
+
+    n7.parent = n6
+    n5.parent = n6
+    n6.parent = n4
+    n3.parent = n4
+    n4.parent = n2
+    n1.parent = n2
+
+    btree = BST()
+    btree.root = n2
+
+    return btree
+
+
+def test_rotate_left_on_r_r_tree(create_r_r_tree):
+    btree = create_r_r_tree
+
+    pivot = btree.root.right_child
+    newroot = btree.root.right_child.right_child
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='left'
+    )
+
+    assert btree.root.val == 2
+    assert btree.root.right_child is newroot
+    assert newroot.parent is btree.root
+    assert pivot.parent is newroot
+    assert newroot.left_child is pivot
+    assert pivot.right_child.val == 5
+    assert pivot.right_child.parent is pivot
+
+
+def test_rotate_left_on_r_r_tree_parentless_pivot(create_r_r_tree):
+    btree = create_r_r_tree
+
+    pivot = btree.root
+    newroot = btree.root.right_child
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='left'
+    )
+
+    assert btree.root is newroot
+    assert newroot.parent is None
+    assert newroot.right_child.val == 6
+    assert newroot.left_child is pivot
+    assert pivot.parent is newroot
+    assert pivot.right_child.val == 3
+    assert pivot.right_child.parent is pivot
+
+
+def test_rotate_left_on_r_r_tree_childless_newroot(create_r_r_tree):
+    btree = create_r_r_tree
+
+    pivot = btree.root.right_child.right_child
+    newroot = btree.root.right_child.right_child.right_child
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='left'
+    )
+
+    assert btree.root.right_child.right_child is newroot
+    assert newroot.parent.val == 4
+    assert newroot.parent.right_child is newroot
+    assert newroot.left_child is pivot
+    assert pivot.parent is newroot
+    assert newroot.right_child is None
+    assert pivot.right_child is None
+    assert pivot.left_child.val == 5
+    assert pivot.left_child.parent is pivot
+
+
+def test_rotate_left_on_r_r_tree_parentless_and_childless():
+    pivot = BSTNode(val=2)
+    newroot = BSTNode(val=3)
+    n1 = BSTNode(val=1)
+
+    pivot.right_child = newroot
+    pivot.left_child = n1
+    newroot.parent = pivot
+    n1.parent = pivot
+
+    btree = BST()
+    btree.root = pivot
+
+    btree._rotate(
+        pivot=pivot,
+        newroot=newroot,
+        direction='left'
+    )
+
+    assert btree.root is newroot
+    assert newroot.parent is None
+    assert newroot.right_child is None
+    assert newroot.left_child is pivot
+    assert pivot.parent is newroot
+    assert pivot.left_child is n1
+    assert n1.parent is pivot
