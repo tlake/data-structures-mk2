@@ -298,62 +298,58 @@ class BST(object):
             return
         elif balance > 1:
             if self._balance(node.left_child) == -1:
-                self._rotate(node.left_child,
-                             node.left_child.right_child, 'left')
-            self._rotate(node, node.left_child, 'right')
+                self._rotate_left(node.left_child,
+                                  node.left_child.right_child)
+            self._rotate_right(node, node.left_child)
         elif balance < -1:
             if self._balance(node.right_child) == 1:
-                self._rotate(node.right_child,
-                             node.right_child.left_child, 'right')
-            self._rotate(node, node.right_child, 'left')
+                self._rotate_right(node.right_child,
+                                   node.right_child.left_child)
+            self._rotate_left(node, node.right_child)
         if node.parent:
             self.make_balanced(node.parent)
 
-    def _rotate(self, pivot, newroot, direction):
-        if direction == 'left':
-            if newroot.left_child is not None:
-                pivot.right_child = newroot.left_child
-                newroot.left_child.parent = pivot
-                newroot.left_child = pivot
-            else:
-                newroot.left_child = pivot
-                pivot.right_child = None
-
-            if pivot.parent is not None:
-                if pivot.val < pivot.parent.val:
-                    pivot.parent.left_child = newroot
-                else:
-                    pivot.parent.right_child = newroot
-                newroot.parent = pivot.parent
-                pivot.parent = newroot
-            else:
-                pivot.parent = newroot
-                newroot.parent = None
-                self.root = newroot
-
-        elif direction == 'right':
-            if newroot.right_child is not None:
-                pivot.left_child = newroot.right_child
-                newroot.right_child.parent = pivot
-                newroot.right_child = pivot
-            else:
-                newroot.right_child = pivot
-                pivot.left_child = None
-
-            if pivot.parent is not None:
-                if pivot.val > pivot.parent.val:
-                    pivot.parent.right_child = newroot
-                else:
-                    pivot.parent.left_child = newroot
-                newroot.parent = pivot.parent
-                pivot.parent = newroot
-            else:
-                pivot.parent = newroot
-                newroot.parent = None
-                self.root = newroot
-
+    def _rotate_left(self, pivot, newroot):
+        if newroot.left_child is not None:
+            pivot.right_child = newroot.left_child
+            newroot.left_child.parent = pivot
+            newroot.left_child = pivot
         else:
-            raise ValueError("direction must be 'left' or 'right'")
+            newroot.left_child = pivot
+            pivot.right_child = None
+
+        if pivot.parent is not None:
+            if pivot.val < pivot.parent.val:
+                pivot.parent.left_child = newroot
+            else:
+                pivot.parent.right_child = newroot
+            newroot.parent = pivot.parent
+            pivot.parent = newroot
+        else:
+            pivot.parent = newroot
+            newroot.parent = None
+            self.root = newroot
+
+    def _rotate_right(self, pivot, newroot):
+        if newroot.right_child is not None:
+            pivot.left_child = newroot.right_child
+            newroot.right_child.parent = pivot
+            newroot.right_child = pivot
+        else:
+            newroot.right_child = pivot
+            pivot.left_child = None
+
+        if pivot.parent is not None:
+            if pivot.val > pivot.parent.val:
+                pivot.parent.right_child = newroot
+            else:
+                pivot.parent.left_child = newroot
+            newroot.parent = pivot.parent
+            pivot.parent = newroot
+        else:
+            pivot.parent = newroot
+            newroot.parent = None
+            self.root = newroot
 
     def make_graph(self):
         dot_graph = self.get_dot()
