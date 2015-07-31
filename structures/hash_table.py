@@ -46,7 +46,7 @@ if __name__ == '__main__':
     from timeit import timeit
 
     fh = open('/usr/share/dict/words', 'r')
-    exponents = [3, 4, 5, 6, 7]
+    exponents = [2, 3, 4, 5, 6, 7]
     cycles = 2
 
     print(
