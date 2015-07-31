@@ -40,3 +40,55 @@ class HashTable(object):
         for letter in key:
             key_sum += ord(letter)
         return (key_sum % len(self.table_list))
+
+
+if __name__ == '__main__':
+    from timeit import timeit
+
+    fh = open('/usr/share/dict/words', 'r')
+    exponents = [3, 4, 5, 6, 7]
+    cycles = 2
+
+    print(
+        "\nItems in /usr/share/dict/words: {words}\n"
+        "Sizes of hashtables: 10^{exponents}\n"
+        "Cycles per hashtable: {cycles}\n".format(
+            words=len(fh.readlines()),
+            exponents=exponents,
+            cycles=cycles
+        )
+    )
+
+    setup = '''
+from __main__ import hashtime
+
+xpon = {}
+    '''
+
+    def set_timings(xpons=exponents, cycles=cycles):
+        for xpon in xpons:
+            print(
+                "Average time for hashtable 10^" + str(xpon) + ": " +
+                str(timeit(
+                    'hashtime(xpon)',
+                    setup=setup.format(str(xpon)),
+                    number=cycles
+                ) / cycles)
+            )
+
+    def hashtime(val):
+        ht = HashTable(10 ** val)
+
+        fh.seek(0)
+
+        for line in fh:
+            ht.set(line.strip(), line.strip())
+
+        fh.seek(0)
+
+        for line in fh:
+            ht.get(line.strip())
+
+    set_timings()
+
+    fh.close()
