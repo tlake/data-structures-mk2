@@ -14,6 +14,7 @@ class HashTable(object):
         for item in self.table_list[hashed]:
             if key == item[0]:
                 return item[1]
+        raise KeyError('Key is not in the table.')
 
     def set(self, key, value):
         """Set a key value pair in the table.
@@ -21,9 +22,6 @@ class HashTable(object):
         Keys must be strings.
         If the key is already in the table, updates its value.
         """
-        # updates value if key is in the list
-        if not isinstance(key, basestring):
-            raise TypeError('Keys must be strings.')
         hashed = self._hash(key)
         bucket = self.table_list[hashed]
         found = False
@@ -36,6 +34,8 @@ class HashTable(object):
             bucket.append((key, value))
 
     def _hash(self, key):
+        if not isinstance(key, basestring):
+            raise TypeError('Keys must be strings.')
         key_sum = 0
         for letter in key:
             key_sum += ord(letter)
