@@ -39,4 +39,4 @@ def test_repeats(self):
 def test_multiple_types(self):
     l = [3, 'foo', 2.8, True, []]
     # python 2 sorting is crazy
-    assert insertion_sort(l) == [True, 2,8, 3, [], 'foo']
+    assert insertion_sort(l) == [True, 2.8, 3, [], 'foo']
