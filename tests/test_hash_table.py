@@ -53,6 +53,14 @@ def test_set():
         ht.set(1, 2)
 
 
+def test_update_key():
+    ht = HashTable(4)
+    ht.set('b', 5)
+    assert ht.get('b') == 5
+    ht.set('b', 7)
+    assert ht.get('b') == 7
+
+
 def test_get(words_table):
     ht = words_table
 
