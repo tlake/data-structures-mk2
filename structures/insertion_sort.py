@@ -34,7 +34,7 @@ from __main__ import insertion_sort, num, best, worst, average
     print(
         "\nTesting best case (a sorted list), worst-case (an inversely-"
         "sorted list), and average case (just a bunch of randos).\n\n"
-        "These are testing with %s numbers.\n\n" % num
+        "These are testing with %s numbers.\n" % num
     )
 
     print(
