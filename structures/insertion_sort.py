@@ -3,6 +3,9 @@ from __future__ import unicode_literals
 
 
 def insertion_sort(iterable):
+    """Return a sorted iterable.
+    Takes an unsorted iterable and sorts it using the insertion method.
+    """
     for i in xrange(1, len(iterable)):
         item = iterable[i]
         j = i
