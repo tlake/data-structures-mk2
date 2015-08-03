@@ -65,6 +65,10 @@ A (second) repository to hold sample code for a number of classic data structure
         - The node has one descendant (either left or right)
         - The node has two descendants (both left and right)
 
+### Insertion Sort
+
+- Insertion sort takes an iterable, sorts it one item at a time, and returns the sorted iterable.
+
 
 #### Resources:
 
@@ -84,3 +88,7 @@ http://www.java2s.com/Tutorial/Python/0060__Statement/ARecursiveGenerator.htm
 - Information on deleting from a BST:
 
 https://en.wikipedia.org/wiki/Binary_search_tree#Deletion
+
+- Information on implementing insertion sort:
+
+https://en.wikipedia.org/wiki/Insertion_sort
