@@ -24,14 +24,11 @@ class HashTable(object):
         """
         hashed = self._hash(key)
         bucket = self.table_list[hashed]
-        found = False
         for item in bucket:
             if item[0] == key:
-                item[1] = value
-                found = True
+                bucket.remove(item)
                 break
-        if not found:
-            bucket.append((key, value))
+        bucket.append((key, value))
 
     def _hash(self, key):
         if not isinstance(key, basestring):
