@@ -27,10 +27,9 @@ if __name__ == '__main__':
     average = [x for x in xrange(num)]
     shuffle(average)
 
-    setup = """
-from __main__ import insertion_sort, num, best, worst, average
-
-"""
+    setup = (
+        "from __main__ import insertion_sort, num, best, worst, average"
+    )
 
     print(
         "\nTesting best case (a sorted list), worst-case (an inversely-"
