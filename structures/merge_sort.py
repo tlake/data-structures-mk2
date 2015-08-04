@@ -43,3 +43,41 @@ def _merge(left, right):
         result.append(right[j])
         j += 1
     return result
+
+
+if __name__ == '__main__':
+    from timeit import timeit
+    from random import shuffle
+
+    num = 10 ** 4
+
+    best = [x for x in xrange(num)]
+    worst = [x for x in xrange(0, num, 2)] + [x for x in xrange(1, num, 2)]
+    average = [x for x in xrange(num)]
+    shuffle(average)
+
+    setup = """
+from __main__ import merge_sort, _merge, num, best, worst, average
+
+"""
+
+    print(
+        "\nTesting best case (a sorted list), worst-case (an inversely-"
+        "sorted list), and average case (just a bunch of randos).\n\n"
+        "These are testing with %s numbers.\n" % num
+    )
+
+    print(
+        "Best-case (a sorted list):",
+        str(timeit('merge_sort(best)', setup=setup, number=1))
+    )
+
+    print(
+        "Worst-case (an inversely-sorted list):",
+        str(timeit('merge_sort(worst)', setup=setup, number=1))
+    )
+
+    print(
+        "Average (just randos):",
+        str(timeit('merge_sort(average)', setup=setup, number=1))
+    )
