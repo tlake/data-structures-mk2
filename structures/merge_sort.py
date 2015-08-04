@@ -8,7 +8,17 @@ from __future__ import unicode_literals
 
 
 def merge_sort(iterable):
-    pass
+    if len(iterable) <= 1:
+        return iterable
+
+    midval = len(iterable) / 2
+    left = iterable[0:midval]
+    right = iterable[midval:]
+
+    left = merge_sort(left)
+    right = merge_sort(right)
+
+    _merge(left, right)
 
 
 def _merge(left, right):
