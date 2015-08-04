@@ -13,18 +13,19 @@ def insertion_sort(iterable):
             iterable[j] = iterable[j - 1]
             j -= 1
         iterable[j] = item
-    return iterable
+    return None
 
 
 if __name__ == '__main__':
     from timeit import timeit
-    from random import randint
+    from random import shuffle
 
     num = 10 ** 4
 
     best = [x for x in xrange(num)]
     worst = [x for x in xrange(num, -1, -1)]
-    average = [randint(0, num) for x in xrange(num)]
+    average = [x for x in xrange(num)]
+    shuffle(average)
 
     setup = """
 from __main__ import insertion_sort, num, best, worst, average

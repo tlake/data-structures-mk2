@@ -20,23 +20,28 @@ def average_list():
 
 
 def test_sorted(sorted_list):
-    assert insertion_sort(sorted_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    insertion_sort(sorted_list)
+    assert sorted_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def test_worst(reverse_list):
-    assert insertion_sort(reverse_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    insertion_sort(reverse_list)
+    assert reverse_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def test_average(average_list):
-    assert insertion_sort(average_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    insertion_sort(average_list)
+    assert average_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def test_repeats():
     l = [3, 6, 7, 3, 9, 5, 2, 7]
-    assert insertion_sort(l) == [2, 3, 3, 5, 6, 7, 7, 9]
+    insertion_sort(l)
+    assert l == [2, 3, 3, 5, 6, 7, 7, 9]
 
 
 def test_multiple_types():
     l = [3, 'foo', 2.8, True, []]
     # python 2 sorting is crazy
-    assert insertion_sort(l) == [True, 2.8, 3, [], 'foo']
+    insertion_sort(l)
+    assert l == [True, 2.8, 3, [], 'foo']
