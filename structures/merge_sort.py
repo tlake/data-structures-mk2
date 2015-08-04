@@ -8,6 +8,11 @@ from __future__ import unicode_literals
 
 
 def merge_sort(iterable):
+    """Return a new sorted iterable.
+
+    Takes in an iterable and constructs a new list using the merge sort
+    method.
+    """
     if len(iterable) <= 1:
         return iterable
 
