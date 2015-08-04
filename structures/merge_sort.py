@@ -68,26 +68,31 @@ from __main__ import merge_sort, _merge, num, cycles, best, worst, average
     print(
         "\nTesting best case (a sorted list), worst-case (LIST DESC HERE"
         "), and average case (just a bunch of randos).\n\n"
-        "These are testing with %s numbers, %s cycles each.\n" % (num, cycles)
+        "These are testing with %s numbers, %s cycles each." % (num, cycles)
     )
 
     best_case_time = timeit('merge_sort(best)', setup=setup, number=cycles)
     print(
-        "Best-case (a sorted list):\n",
-        "Total time: " + str(best_case_time),
-        "Avg time: " + str(best_case_time / cycles)
+        "\nBest-case (a sorted list):\n"
+        "Total time: " + str(best_case_time) +
+        " || Avg time: " + str(best_case_time / cycles)
     )
 
     worst_case_time = timeit('merge_sort(worst)', setup=setup, number=cycles)
     print(
-        "Worst-case (LIST DESC HERE):\n",
-        "Total time: " + str(worst_case_time),
-        "Avg time: " + str(worst_case_time / cycles)
+        "\nWorst-case (LIST DESC HERE):\n"
+        "Total time: " + str(worst_case_time) +
+        " || Avg time: " + str(worst_case_time / cycles)
     )
 
     avg_case_time = timeit('merge_sort(average)', setup=setup, number=cycles)
     print(
-        "Average-case (just randos):\n",
-        "Total time: " + str(avg_case_time),
-        "Avg time: " + str(avg_case_time / cycles)
+        "\nAverage-case (just randos):\n"
+        "Total time: " + str(avg_case_time) +
+        " || Avg time: " + str(avg_case_time / cycles)
+    )
+
+    print(
+        "\nTotal elapsed test time: " +
+        str(best_case_time + worst_case_time + avg_case_time)
     )
