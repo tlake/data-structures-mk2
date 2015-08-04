@@ -15,8 +15,8 @@ def sorted_list():
 
 
 @pytest.fixture
-def reverse_list():
-    return [i for i in xrange(9, -1, -1)]
+def even_odd_split_list():
+    return [x for x in xrange(0, 10, 2)] + [x for x in xrange(1, 10, 2)]
 
 
 @pytest.fixture
@@ -25,28 +25,23 @@ def average_list():
 
 
 def test_sorted(sorted_list):
-    merge_sort(sorted_list)
-    assert sorted_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert merge_sort(sorted_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-def test_worst(reverse_list):
-    merge_sort(reverse_list)
-    assert reverse_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+def test_worst(even_odd_split_list):
+    assert merge_sort(even_odd_split_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def test_average(average_list):
-    merge_sort(average_list)
-    assert average_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assert merge_sort(average_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def test_repeats():
     l = [3, 6, 7, 3, 9, 5, 2, 7]
-    merge_sort(l)
-    assert l == [2, 3, 3, 5, 6, 7, 7, 9]
+    assert merge_sort(l) == [2, 3, 3, 5, 6, 7, 7, 9]
 
 
 def test_multiple_types():
     l = [3, 'foo', 2.8, True, []]
     # python 2 sorting is crazy
-    merge_sort(l)
-    assert l == [True, 2.8, 3, [], 'foo']
+    assert merge_sort(l) == [True, 2.8, 3, [], 'foo']
