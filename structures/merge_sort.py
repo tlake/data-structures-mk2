@@ -16,7 +16,7 @@ def merge_sort(iterable):
     if len(iterable) <= 1:
         return iterable
 
-    midval = len(iterable) / 2
+    midval = len(iterable) // 2
     left = iterable[0:midval]
     right = iterable[midval:]
 
@@ -40,13 +40,9 @@ def _merge(left, right):
             result.append(right[j])
             j += 1
 
-    while i < len(left):
-        result.append(left[i])
-        i += 1
+    result.extend(left[i:])
 
-    while j < len(right):
-        result.append(right[j])
-        j += 1
+    result.extend(right[j:])
     return result
 
 
@@ -55,34 +51,43 @@ if __name__ == '__main__':
     from random import shuffle
 
     num = 10 ** 4
+    cycles = 400
 
     best = [x for x in xrange(num)]
-    worst = [x for x in xrange(0, num, 2)] + [x for x in xrange(1, num, 2)]
+    worst = ([x for x in xrange(num, -1, -2)]
+             + [x for x in xrange(num - 1, -1, -2)])
+    # import pdb; pdb.set_trace()
     average = [x for x in xrange(num)]
     shuffle(average)
 
     setup = """
-from __main__ import merge_sort, _merge, num, best, worst, average
+from __main__ import merge_sort, _merge, num, cycles, best, worst, average
 
 """
 
     print(
-        "\nTesting best case (a sorted list), worst-case (an inversely-"
-        "sorted list), and average case (just a bunch of randos).\n\n"
-        "These are testing with %s numbers.\n" % num
+        "\nTesting best case (a sorted list), worst-case (LIST DESC HERE"
+        "), and average case (just a bunch of randos).\n\n"
+        "These are testing with %s numbers, %s cycles each.\n" % (num, cycles)
     )
 
+    best_case_time = timeit('merge_sort(best)', setup=setup, number=cycles)
     print(
-        "Best-case (a sorted list):",
-        str(timeit('merge_sort(best)', setup=setup, number=1))
+        "Best-case (a sorted list):\n",
+        "Total time: " + str(best_case_time),
+        "Avg time: " + str(best_case_time / cycles)
     )
 
+    worst_case_time = timeit('merge_sort(worst)', setup=setup, number=cycles)
     print(
-        "Worst-case (an inversely-sorted list):",
-        str(timeit('merge_sort(worst)', setup=setup, number=1))
+        "Worst-case (LIST DESC HERE):\n",
+        "Total time: " + str(worst_case_time),
+        "Avg time: " + str(worst_case_time / cycles)
     )
 
+    avg_case_time = timeit('merge_sort(average)', setup=setup, number=cycles)
     print(
-        "Average (just randos):",
-        str(timeit('merge_sort(average)', setup=setup, number=1))
+        "Average-case (just randos):\n",
+        "Total time: " + str(avg_case_time),
+        "Avg time: " + str(avg_case_time / cycles)
     )
