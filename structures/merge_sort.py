@@ -54,9 +54,8 @@ if __name__ == '__main__':
     cycles = 400
 
     best = [x for x in xrange(num)]
-    worst = ([x for x in xrange(num, -1, -2)]
-             + [x for x in xrange(num - 1, -1, -2)])
-    # import pdb; pdb.set_trace()
+    worst = ([x for x in xrange(num - 1, -1, -2)]
+             + [x for x in xrange(num, -1, -2)])
     average = [x for x in xrange(num)]
     shuffle(average)
 
@@ -66,8 +65,8 @@ from __main__ import merge_sort, _merge, num, cycles, best, worst, average
 """
 
     print(
-        "\nTesting best case (a sorted list), worst-case (LIST DESC HERE"
-        "), and average case (just a bunch of randos).\n\n"
+        "\nTesting best case (a sorted list), worst-case (IN THEORY, a "
+        "left-odd-right-even), and average case (just a bunch of randos).\n\n"
         "These are testing with %s numbers, %s cycles each." % (num, cycles)
     )
 
@@ -80,7 +79,7 @@ from __main__ import merge_sort, _merge, num, cycles, best, worst, average
 
     worst_case_time = timeit('merge_sort(worst)', setup=setup, number=cycles)
     print(
-        "\nWorst-case (LIST DESC HERE):\n"
+        "\nWorst-case (IN THEORY, a left-odd-right-even list):\n"
         "Total time: " + str(worst_case_time) +
         " || Avg time: " + str(worst_case_time / cycles)
     )
