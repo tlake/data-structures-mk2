@@ -59,10 +59,10 @@ if __name__ == '__main__':
     average = [x for x in xrange(num)]
     shuffle(average)
 
-    setup = """
-from __main__ import merge_sort, _merge, num, cycles, best, worst, average
-
-"""
+    setup = (
+        "from __main__ import merge_sort, _merge, num, cycles, best, "
+        "worst, average"
+    )
 
     print(
         "\nTesting best case (a sorted list), worst-case (IN THEORY, a "
