@@ -15,11 +15,12 @@ def _piv_eenie(iterable):
 
 
 def quick_sort(iterable, pivot_func=_piv_eenie):
-    if iterable[0] < iterable[-1]:
+    if len(iterable) > 1:
         piv_idx = pivot_func(iterable)
-        l, r = _partition(iterable, iterable[piv_idx])
-        quick_sort(iterable[:l], pivot_func)
-        quick_sort(iterable[r:], pivot_func)
+        l, r, iterable = _partition(iterable, iterable[piv_idx])
+        iterable[:l] = quick_sort(iterable[:l], pivot_func)
+        iterable[r:] = quick_sort(iterable[r:], pivot_func)
+    return iterable
 
 
 def _partition(iterable, mid):
@@ -38,5 +39,4 @@ def _partition(iterable, mid):
 
         else:
             r += 1
-
-    return (l, r)
+    return (l, r, iterable)
