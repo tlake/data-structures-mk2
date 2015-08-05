@@ -2,8 +2,24 @@
 from __future__ import unicode_literals
 
 
-def quick_sort(pivot_func=_default_pivot):
-    pass
+def _piv_eenie(iterable):
+    """
+    Eenie, meenie, miney, moe
+    Catch a tiger by the toe
+    If he hollers, let him go
+    Eenie, meenie, miney, moe
+
+    Pick the sixteenth element, modulo iterable length.
+    """
+    return 15 % len(iterable)
+
+
+def quick_sort(iterable, pivot_func=_piv_eenie):
+    if iterable[0] < iterable[-1]:
+        piv_idx = pivot_func(iterable)
+        l, r = _partition(iterable, iterable[piv_idx])
+        quick_sort(iterable[:l], pivot_func)
+        quick_sort(iterable[r:], pivot_func)
 
 
 def _partition(iterable, mid):
@@ -22,3 +38,5 @@ def _partition(iterable, mid):
 
         else:
             r += 1
+
+    return (l, r)
