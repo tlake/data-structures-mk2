@@ -24,6 +24,7 @@ def test_sorted(sorted_list):
     assert quick_sort(sorted_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
+# three-way partition should handle this fine
 def test_many_equal_values(equal_values_list):
     assert quick_sort(equal_values_list) == [4, 4, 4, 4, 5, 5, 5, 5, 5, 5]
 
@@ -32,6 +33,8 @@ def test_average(average_list):
     assert quick_sort(average_list) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-def test_repeats():
-    l = [3, 6, 7, 3, 9, 5, 2, 7]
-    assert quick_sort(l) == [2, 3, 3, 5, 6, 7, 7, 9]
+def test_stable():
+    l = [{5: 'one'}, {6: 'one'}, {4: 'one'}, {5: 'two'}, {5: 'three'},
+         {6: 'two'}]
+    assert quick_sort(l) == [{4: 'one'}, {5: 'one'}, {5: 'two'}, {5: 'three'},
+                             {6: 'one'}, {6: 'two'}]
