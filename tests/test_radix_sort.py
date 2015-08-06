@@ -11,10 +11,7 @@ def sorted_list():
 
 @pytest.fixture
 def equal_values_list():
-    return [
-        {5: 'one'}, {6: 'one'}, {4: 'one'}, {5: 'two'}, {5: 'three'},
-        {6: 'two'}
-    ]
+    return [5, 9, 4, 2, 5, 0, 5, 2, 6, 4]
 
 
 @pytest.fixture
@@ -34,7 +31,4 @@ def test_average(random_list):
 
 def test_stable(equal_values_list):
     radix_sort(equal_values_list)
-    assert equal_values_list == [
-        {4: 'one'}, {5: 'one'}, {5: 'two'}, {5: 'three'},
-        {6: 'one'}, {6: 'two'}
-    ]
+    assert equal_values_list == [0, 2, 2, 4, 4, 5, 5, 5, 6, 9]
