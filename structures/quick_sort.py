@@ -19,6 +19,11 @@ def _piv_zero(iterable):
 
 
 def quick_sort(iterable, pivot_func=_piv_eenie):
+    """Modify a given iterable in-place using the quick-sort method.
+
+    This particular quick sort uses a "fat partition" method to speed up
+    sorting of lists with many similar elements.
+    """
     iterable = _quick_sort(iterable)
 
 
@@ -77,14 +82,15 @@ if __name__ == '__main__':
     cycles = 40
 
     best = gbest(num)
-
     worst = [x for x in xrange(num)]
     average = [x for x in xrange(num)]
     shuffle(average)
+    repeat = ([5 for x in xrange(num//3)] + [15 for x in xrange(num//3)] +
+              [10 for x in xrange(num//3)])
 
     setup = (
         "from __main__ import quick_sort, num, cycles, best, "
-        "worst, average, _piv_zero"
+        "worst, average, repeat, _piv_zero"
     )
 
     print(
@@ -119,7 +125,17 @@ if __name__ == '__main__':
         " || Avg time: " + str(avg_case_time / cycles)
     )
 
+    repeat_case_time = timeit(
+        'quick_sort(repeat)', setup=setup, number=cycles
+    )
+    print(
+        "\nRepeat-case (many repeated elements):\n"
+        "Total time: " + str(repeat_case_time) +
+        " || Avg time: " + str(repeat_case_time / cycles)
+    )
+
     print(
         "\nTotal elapsed test time: " +
-        str(best_case_time + worst_case_time + avg_case_time)
+        str(best_case_time + worst_case_time + avg_case_time +
+            repeat_case_time)
     )
