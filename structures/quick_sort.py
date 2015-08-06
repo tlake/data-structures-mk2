@@ -24,7 +24,7 @@ def quick_sort(iterable, pivot_func=_piv_eenie):
     This particular quick sort uses a "fat partition" method to speed up
     sorting of lists with many similar elements.
     """
-    iterable = _quick_sort(iterable)
+    iterable = _quick_sort(iterable, pivot_func)
 
 
 def _quick_sort(iterable, pivot_func=_piv_eenie):
