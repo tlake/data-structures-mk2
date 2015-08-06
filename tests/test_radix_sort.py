@@ -29,6 +29,6 @@ def test_average(random_list):
     assert random_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-def test_stable(equal_values_list):
+def test_equal_values(equal_values_list):
     radix_sort(equal_values_list)
     assert equal_values_list == [0, 2, 2, 4, 4, 5, 5, 5, 6, 9]
