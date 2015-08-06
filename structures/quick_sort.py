@@ -57,23 +57,25 @@ def _partition(iterable, mid):
     return (l, r, iterable)
 
 
+def gbest(size):
+    mylist = [x for x in xrange(size)]
+    _gbest(mylist, 0, size - 1)
+    return mylist
+
+
+def _gbest(mylist, lo, hi):
+    for x in xrange(lo, hi):
+        assert mylist[x] == x
+
+    if hi <= lo:
+        return
+    mid = lo + ((hi - lo) // 2)
+    _gbest(mylist, lo, mid - 1)
+    _gbest(mylist, mid + 1, hi)
+    mylist[lo], mylist[mid] = mylist[mid], mylist[lo]
+
+
 if __name__ == '__main__':
-
-    def gbest(size):
-        mylist = [x for x in xrange(size)]
-        _gbest(mylist, 0, size - 1)
-        return mylist
-
-    def _gbest(mylist, lo, hi):
-        for x in xrange(lo, hi):
-            assert mylist[x] == x
-
-        if hi <= lo:
-            return
-        mid = lo + ((hi - lo) // 2)
-        _gbest(mylist, lo, mid - 1)
-        _gbest(mylist, mid + 1, hi)
-        mylist[lo], mylist[mid] = mylist[mid], mylist[lo]
 
     from timeit import timeit
     from random import shuffle
