@@ -36,9 +36,10 @@ def test_average(average_list):
     assert average_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-def test_stable():
-    l = [{5: 'one'}, {6: 'one'}, {4: 'one'}, {5: 'two'}, {5: 'three'},
-         {6: 'two'}]
-    quick_sort(l)
-    assert l == [{4: 'one'}, {5: 'one'}, {5: 'two'}, {5: 'three'},
-                             {6: 'one'}, {6: 'two'}]
+# used this to confirm that our sort isn't stable
+# def test_stable():
+#     l = [{5: 'one'}, {6: 'one'}, {4: 'one'}, {5: 'two'}, {5: 'three'},
+#          {6: 'two'}]
+#     quick_sort(l)
+#     assert l == [{4: 'one'}, {5: 'one'}, {5: 'two'}, {5: 'three'},
+#                              {6: 'one'}, {6: 'two'}]
