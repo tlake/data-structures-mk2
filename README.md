@@ -69,6 +69,13 @@ A (second) repository to hold sample code for a number of classic data structure
 
 - Insertion sort takes an iterable, sorts it one item at a time, and returns the sorted iterable.
 
+### Quick Sort
+
+- Quick sort takes an iterable, selects a pivot point, and divides the iterable
+into two sub-iterables where one sub-iterable contains values less than the
+pivot and the other contains values greater than the pivot. It then recurses
+these steps until the list is sorted.
+
 
 #### Resources:
 
@@ -92,3 +99,8 @@ https://en.wikipedia.org/wiki/Binary_search_tree#Deletion
 - Information on implementing insertion sort:
 
 https://en.wikipedia.org/wiki/Insertion_sort
+
+- A Java implementation of generating the best-case initial condition for
+quick sort:
+
+http://algs4.cs.princeton.edu/23quicksort/QuickBest.java.html
