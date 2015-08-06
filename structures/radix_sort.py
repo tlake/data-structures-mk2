@@ -25,3 +25,58 @@ def radix_sort(iterable, num_base=10):
                 idx += 1
 
         decimal_place *= num_base
+
+
+if __name__ == '__main__':
+
+    from timeit import timeit
+    from random import shuffle
+
+    num = 10 ** 4
+    cycles = 400
+
+    best = [x for x in range(10)] * 1000
+    worst = [x for x in xrange(num ** 3 - 1, num ** 4, num ** 3)]
+    average = [x for x in xrange(num)]
+    shuffle(average)
+
+    setup = (
+        "from __main__ import radix_sort, num, cycles, best, worst, average"
+    )
+
+    print(
+        "\nTesting best case (a list of single digit numbers), "
+        "worst-case (a list of fuckload-digit numbers), and average case "
+        "(just a bunch of randos).\n\n"
+        "These are testing with %s numbers, %s cycles each." % (num, cycles)
+    )
+
+    best_case_time = timeit(
+        'radix_sort(best)', setup=setup, number=cycles
+    )
+    print(
+        "\nBest-case (single-digits):\n"
+        "Total time: " + str(best_case_time) +
+        " || Avg time: " + str(best_case_time / cycles)
+    )
+
+    worst_case_time = timeit(
+        'radix_sort(worst)', setup=setup, number=cycles
+    )
+    print(
+        "\nWorst-case (fuckloads of digits):\n"
+        "Total time: " + str(worst_case_time) +
+        " || Avg time: " + str(worst_case_time / cycles)
+    )
+
+    avg_case_time = timeit('radix_sort(average)', setup=setup, number=cycles)
+    print(
+        "\nAverage-case (just randos):\n"
+        "Total time: " + str(avg_case_time) +
+        " || Avg time: " + str(avg_case_time / cycles)
+    )
+
+    print(
+        "\nTotal elapsed test time: " +
+        str(best_case_time + worst_case_time + avg_case_time)
+    )
