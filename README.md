@@ -76,6 +76,12 @@ into two sub-iterables where one sub-iterable contains values less than the
 pivot and the other contains values greater than the pivot. It then recurses
 these steps until the list is sorted.
 
+### Radix Sort
+
+- Radix sort divides elements into buckets based on either least-significant
+digit or most-significant digit; this implementation is the former. It is
+stable, modifies the original list in place, and returns nothing.
+
 
 #### Resources:
 
@@ -104,3 +110,7 @@ https://en.wikipedia.org/wiki/Insertion_sort
 quick sort:
 
 http://algs4.cs.princeton.edu/23quicksort/QuickBest.java.html
+
+- A Python implementation of Radix sort that was just super great:
+
+http://www.geekviewpoint.com/python/sorting/radixsort
